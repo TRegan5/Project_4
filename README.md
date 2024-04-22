@@ -25,7 +25,6 @@ The dataset comprises 23,783 Mutual Funds and 2,310 ETFs, featuring various attr
 - Replace NaN values with column means
 - Remove columns with irrelevant data Ex: Management bios, Investment strategy, fund_long_name, etc.
 
-
 ### Binning
 We had 5 columns of type "object"
 - Fund Category: cutoff value > 150 to retain 82% of data
@@ -34,13 +33,12 @@ We had 5 columns of type "object"
 - Investment Type: only had 3 unique values, Blend, Growth, Value
 - Size Type: only had 3 values, Large, Medium, Small
 
+### Utilizing SQLite for Data Management
+* Database Creation: Established an SQLite database named "mutual_funds_data.db" to store Mutual Funds & ETFs data extracted from external sources.
+* Data Import: Imported the cleaned and preprocessed dataset into the SQLite database for efficient storage and retrieval.
+* Querying and Manipulation: Conducted SQL queries to extract, filter, and manipulate data directly within the database environment.
+* Integration with Machine Learning: Integrated SQLite with machine learning pipelines, allowing seamless data retrieval and preprocessing for model training and testing.
 -SQLite Database: https://drive.google.com/file/d/1Hom3giG43Gduxa-n9tFezwvsWyURMqFA/view?usp=sharing 
-
-### Merging our DataFrames
-Our CSV data was zipped so before reading it in, we added a function to unzip the files.
-We had Mutual Fund Prices A-Z split into chunks and then concatenated leaving us a DataFrame with 75,657,739 rows and 3 columns.
-Our other DataFrame, after cleaning, had 14,680 rows and 140 columns (down from 23,783 rows and 297 columns).
-These DataFrames were then merged using SparkSQL on their common index fund_symbol.
 
 ### Building the Model
 - Convert Categorical Data
@@ -70,13 +68,17 @@ Because of the low R-squared achieved by the first testing with RandomForestRegr
 #### Building the Model - Grid Search with Cross Validation 
 Parameter Grid Definition
 * Defined a parameter grid param_grid containing different values for the hyperparameters 'n_estimators', 'max_depth', and 'min_samples_split'
-* Define the parameter grid : param_grid = {'n_estimators': [50, 100, 150],  # Number of trees in the forest'max_depth': [None, 10, 20],       # Maximum depth of the trees'min_samples_split': [2, 5, 10]
+* Define the parameter grid : param_grid = {'n_estimators': [50, 100, 150],  # Number of trees in the forest'max_depth': [None, 10, 20],
+*  Maximum depth of the trees'min_samples_split': [2, 5, 10]
  
-GridSearchCV Initialization: Initialized GridSearchCV with the chosen estimator (RandomForestRegressor), the defined parameter grid, 5-fold cross-validation
+#### GridSearchCV Initialization: 
+Initialized GridSearchCV with the chosen estimator (RandomForestRegressor), the defined parameter grid, 5-fold cross-validation
+
 *Initialize the RandomForestRegressor model: model = RandomForestRegressor(random_state=42)
 
 GridSearchCV systematically traverses the parameter grid, training and evaluating the RandomForestRegressor model with each hyperparameter combination using cross-validation.
-* Model Training: Initialize GridSearchCVgrid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='neg_mean_squared_error', verbose=2)# Fit the grid search to the datagrid_search.fit(X_train, y_train)# Print the best parameters foundprint("Best parameters:", grid_search.best_params_)
+* Model Training: Initialize GridSearchCVgrid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='neg_mean_squared_error', verbose=2)# Fit the grid search to the datagrid_search.fit(X_train, y_train)
+* Print the best parameters foundprint("Best parameters:", grid_search.best_params_)
 
 Best Parameters Identification
 * GridSearchCV identifies the best combination of hyperparameters and outputs them. 

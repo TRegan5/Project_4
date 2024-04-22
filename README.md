@@ -38,7 +38,7 @@ We had 5 columns of type "object"
 * Data Import: Imported the cleaned and preprocessed dataset into the SQLite database for efficient storage and retrieval.
 * Querying and Manipulation: Conducted SQL queries to extract, filter, and manipulate data directly within the database environment.
 * Integration with Machine Learning: Integrated SQLite with machine learning pipelines, allowing seamless data retrieval and preprocessing for model training and testing.
--SQLite Database: https://drive.google.com/file/d/1Hom3giG43Gduxa-n9tFezwvsWyURMqFA/view?usp=sharing 
+- SQLite Database: https://drive.google.com/file/d/1Hom3giG43Gduxa-n9tFezwvsWyURMqFA/view?usp=sharing 
 
 ### Building the Model
 - Convert Categorical Data

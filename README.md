@@ -11,7 +11,7 @@ Our Project 4 presentation can be found [here](https://www.canva.com/design/DAGC
 ## An overview of the project and its purpose
 Our project aims to analyze mutual funds and ETFs using machine learning techniques to uncover insights into fund performance, portfolio composition, and financial indicators. We plan to explore various targets to assess, such as identifying factors influencing fund performance, understanding the impact of portfolio composition on returns, and evaluating the significance of financial indicators in predicting fund behavior. Through our analysis, we aim to provide valuable insights for investors, fund managers, and financial analysts to make informed decisions regarding fund selection and portfolio management.
 ### Tools and Libraries
-We will utilize Python for data cleaning, analysis, and backend development. Additionally, the following Python libraries will be employed: Matplotlib, Seaborn, and Plotly for visualization. For database management, we will use Spark/PySpark.
+We will utilize Python for data cleaning, analysis, and backend development.For database management, we will use Spark/PySpark.
 
 ### The Dataset
 The dataset comprises 23,783 Mutual Funds and 2,310 ETFs, featuring various attributes such as total net assets, fund family, inception date, portfolio composition (cash, stocks, bonds, sectors), historical returns (yearly and quarterly), financial ratios (price/earning, Treynor and Sharpe ratios, alpha, beta), and ESG scores.

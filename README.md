@@ -34,6 +34,8 @@ We had 5 columns of type "object"
 - Investment Type: only had 3 unique values, Blend, Growth, Value
 - Size Type: only had 3 values, Large, Medium, Small
 
+-SQLite Database: https://drive.google.com/file/d/1Hom3giG43Gduxa-n9tFezwvsWyURMqFA/view?usp=sharing 
+
 ### Merging our DataFrames
 Our CSV data was zipped so before reading it in, we added a function to unzip the files.
 We had Mutual Fund Prices A-Z split into chunks and then concatenated leaving us a DataFrame with 75,657,739 rows and 3 columns.

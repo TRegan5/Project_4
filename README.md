@@ -128,6 +128,13 @@ Results: Exceptional performance with MSE ~2.03e-07 and R2 ~0.99997.
 ### Takeaways
 Exceptional Performance: Demonstrated exceptional predictive accuracy with a remarkably low Mean Squared Error (MSE) of  2.03e-07 and a near-perfect R-squared (R2)  0.99997, indicating the model's ability to explain 99.997% of the variance in the target variable, resulting in highly reliable and precise predictions.
 
+### Limitations
+* Our dataset was so large that we spend the majority of our time cleaning the data to get it to a point where we could begin building a model
+* We encountered several RAM problems when trying to run the original 75 million row dataset and joining the data
+* If given more time, most impact on predicting fund performance and how these insights can be utilized by investors or fund managers.
+* It would be beneficial to include visualizations or tables comparing the performance metrics (MSE, R2) of different models, such as the initial model versus the optimized model, to highlight the improvement achieved through hyperparameter tuning.
+
+
 ## Instructions on how to use and interact with the project
 Clone the repository to your local machine by running the following command in terminal or git bash
 ```bash

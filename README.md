@@ -53,25 +53,78 @@ We chose to use a random_state of 42
 After creating a Standard Scaler instance, we fit the data using X_train. Then, we scaled the data using .transform(X_train) and (X_test)
 
 ### The Model: First Iteration
-2 Hidden Layers: We used tensorflow dense layers with 80 and 30 nodes in each hidden layer, respectively, and Relu activation
-Output Layer: We went with the standard dense output layer activation of Sigmoid
+Test Variable: 'year_to_date_return'
+Features: Selected key features: 'fund_yield', 'total_net_assets', 'morningstar_overall_rating', 'fund_annual_report_net_expense_ratio', 'fund_sector_technology'.
+
+Model: Trained RandomForestRegressor with default parameters.
 
 #### Evaluating the First Model
-Loss:
-Accuracy:
+Test Variable: 'year_to_date_return'
+Features: Selected key features: 'fund_yield', 'total_net_assets', 'morningstar_overall_rating', 'fund_annual_report_net_expense_ratio', 'fund_sector_technology'.
 
+Model: Trained RandomForestRegressor with default parameters.
+Results: Achieved MSE of 0.00240 and R2 of 0.634.
 
-### The Model: Optimized
-X Hidden Layers: We used tensorflow dense layers with X and X nodes in each hidden layer, respectively, and Relu activation
-Output Layer: We went with the standard dense output layer activation of Sigmoid
+Because of the low R-squared achieved by the first testing with RandomForestRegressor, we decided to test using a GridSearchCV model as it is method for optimizing hyperparameters within the RandomForestRegressor model.
 
-#### Evaluating the Optimized Model
-Loss:
-Accuracy:
+#### Building the Model - Grid Search with Cross Validation 
+Parameter Grid Definition
+* Defined a parameter grid param_grid containing different values for the hyperparameters 'n_estimators', 'max_depth', and 'min_samples_split'
+* Define the parameter grid : param_grid = {'n_estimators': [50, 100, 150],  # Number of trees in the forest'max_depth': [None, 10, 20],       # Maximum depth of the trees'min_samples_split': [2, 5, 10]
+ 
+GridSearchCV Initialization: Initialized GridSearchCV with the chosen estimator (RandomForestRegressor), the defined parameter grid, 5-fold cross-validation
+*Initialize the RandomForestRegressor model: model = RandomForestRegressor(random_state=42)
+
+GridSearchCV systematically traverses the parameter grid, training and evaluating the RandomForestRegressor model with each hyperparameter combination using cross-validation.
+* Model Training: Initialize GridSearchCVgrid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='neg_mean_squared_error', verbose=2)# Fit the grid search to the datagrid_search.fit(X_train, y_train)# Print the best parameters foundprint("Best parameters:", grid_search.best_params_)
+
+Best Parameters Identification
+* GridSearchCV identifies the best combination of hyperparameters and outputs them. 
+* Best parameters: {'max_depth': None, 'min_samples_split': 2, 'n_estimators': 150}
+* Get the best modelbest_model = grid_search.best_estimator_
+* Evaluate the best modelpredictions = best_model.predict(X_test)mse = mean_squared_error(y_test, predictions)r2 = r2_score(y_test, predictions)print("Mean Squared Error:", mse)print("R-squared:", r2)
+  
+Grid Search with Cross Validation
+Hyperparameter Tuning: Conducted grid search to optimize RandomForestRegressor parameters.
+Optimal Parameters: max_depth: None, min_samples_split: 2, n_estimators: 150.
+Results: Improved performance with MSE of 0.00242 and R2 of 0.631.
+
+### Random Forest Regressor
+With only a slight improvement using the Grid search with Cross Validation method, we ultimately decided to revert to the original RandomForestRegressor model from Approach 1. However, this time for our model, we utilized all float columns in our dataset as the key features. Roughly 80% of the columns in our dataset were of type Float.  We expected this to improve the accuracy of our model.
+
+### Building the Model - RandomForestRegressor
+* Data Preparation
+Define FLOAT columns as feature columns (X) and target variable (y) from the dataset.
+Filter float columnsfloat_columns = mutualFunds.select_dtypes(include=['float']).columns.tolist()# Create X and yX = mutualFunds[float_columns]y = mutualFunds['year_to_date_return']
+
+* Data Splitting
+Preprocessed data to handle missing data
+Split the data into training and testing sets.
+
+* Preprocess data
+X.fillna(X.mean(), inplace=True)
+* Split Data into Training and Testing SetsX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+Trained the model using RandomForestRegressor with Random State = 42
+
+* Model Training
+Training: 
+model = RandomForestRegressor(random_state=42)
+model.fit(X_train, y_train)
+* Model Testing
+Evaluated the trained model's performance by making predictions on the test data (X_test) using the predict method and then calculating two metrics: mean squared error (MSE) and R-squared (R2).
+
+* Evaluate the modelpredictions = model.predict(X_test)mse = mean_squared_error(y_test, predictions)r2 = r2_score(y_test, predictions)
+print("Mean Squared Error:", mse)
+print("R-squared:", r2)
+
+### Approach 3: Float Columns Implementation
+Features: Utilized all float columns, imputed missing values with means.
+Model: Trained RandomForestRegressor with default parameters.
+Results: Exceptional performance with MSE ~2.03e-07 and R2 ~0.99997.
+
 
 ### Takeaways
-
-
+Exceptional Performance: Demonstrated exceptional predictive accuracy with a remarkably low Mean Squared Error (MSE) of  2.03e-07 and a near-perfect R-squared (R2)  0.99997, indicating the model's ability to explain 99.997% of the variance in the target variable, resulting in highly reliable and precise predictions.
 
 ## Instructions on how to use and interact with the project
 Clone the repository to your local machine by running the following command in terminal or git bash

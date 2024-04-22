@@ -44,11 +44,18 @@ We had 5 columns of type "object"
 - Convert Categorical Data
 Using get_dummies, we converted data with dtype== “object”
 - Split Preprocessed Data
-We split our data using the target array of year_to_date_return (X,y)
+We split our data using the target array of year_to_date_return (X,y) and used random_state of 42
 - Split Preprocessed Data Using train_test_split
-We chose to use a random_state of 42
+We chose to 
 - Scaling Data
 After creating a Standard Scaler instance, we fit the data using X_train. Then, we scaled the data using .transform(X_train) and (X_test)
+- Model selection
+We chose to use RandomForestRegressor as a model due to its outperforming other models via:
+    - ability to mitigate overfitting
+    - capture complex non-linear relationship/interactions
+    - provide insights into feature importance
+    - robustly handle outliers and missing values
+    - efficiently scale for large datasets
 
 ### The Model: First Iteration
 Test Variable: 'year_to_date_return'

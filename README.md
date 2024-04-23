@@ -133,7 +133,8 @@ Results: Exceptional performance with MSE ~2.03e-07 and R2 ~0.99997.
 
 
 ### Takeaways
-Exceptional Performance: Demonstrated exceptional predictive accuracy with a remarkably low Mean Squared Error (MSE) of  2.03e-07 and a near-perfect R-squared (R2)  0.99997, indicating the model's ability to explain 99.997% of the variance in the target variable, resulting in highly reliable and precise predictions.
+Exceptional Performance: Demonstrated exceptional predictive accuracy with a remarkably low Mean Squared Error (MSE) of  0.0002 and a near-perfect R-squared (R2)  0.967, indicating the model's ability to explain 96.7% of the variance in the target variable, resulting in highly reliable and precise predictions.
+Top indicators: week52_low_change_perc, fund_return_1year accounting for over 60% of the predictable capability. 
 
 ### Limitations
 * Our dataset was so large that we spend the majority of our time cleaning the data to get it to a point where we could begin building a model

@@ -129,7 +129,7 @@ print("R-squared:", r2)
 ### Approach 3: Float Columns Implementation
 Features: Utilized all float columns, imputed missing values with means.
 Model: Trained RandomForestRegressor with default parameters.
-Results: Exceptional performance with MSE ~2.03e-07 and R2 ~0.99997.
+Results: Exceptional performance with MSE 0.0002 and R2 ~0.967.
 
 
 ### Takeaways
